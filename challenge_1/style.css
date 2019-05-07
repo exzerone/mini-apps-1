@@ -1,0 +1,10 @@
+.game-board {
+  display: grid;
+  grid-template-rows: 100px 100px 100px;
+  grid-template-columns: 100px 100px 100px; 
+}
+
+.box {
+  background-color: rgb(167, 159, 134);
+  border: 1px solid #555;
+}
