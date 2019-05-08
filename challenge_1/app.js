@@ -6,6 +6,7 @@ var newgame = false;
 var player1 = '';
 var player2 = '';
 
+
 var board = [
 	[{ 1: 0 }, { 2: 0 }, { 3: 0 }],
 	[{ 4: 0 }, { 5: 0 }, { 6: 0 }],
@@ -14,12 +15,12 @@ var board = [
 
 var winningTable = { cross: 0, circle: 0 };
 
-(function(){
-  player1 = prompt('Please Enter Name For Player 1, You Will Play Cross', '');
-  player2 = prompt('Please Enter Name For Player 2, You Will Play Circle', '');
-  document.getElementById('player1').innerHTML = player1;
-  document.getElementById('player2').innerHTML = player2;
-})()
+(function() {
+	player1 = prompt('Please Enter Name For Player 1, You Will Play Cross', '');
+	player2 = prompt('Please Enter Name For Player 2, You Will Play Circle', '');
+	document.getElementById('player1').innerHTML = player1;
+	document.getElementById('player2').innerHTML = player2;
+})();
 
 const tableHandler = (cross, circle) => {
 	winningTable.cross = cross;
@@ -46,7 +47,6 @@ const positionHandler = (pos, piece) => {
 	}
 };
 
-
 checkResult = () => {
 	for (let y = 0; y < board.length; y++) {
 		var sumR = 0;
@@ -71,25 +71,33 @@ checkResult = () => {
 			}
 		}
 	}
-	if (
-		board[0][0][1] + board[1][1][5] + board[2][2][9] === 3 ||
-		board[0][2][3] + board[1][1][5] + board[2][0][7] === 3
-	) {
+	var majorDiag = 0;
+	var minorDiag = 0;
+	for (let y = 0; y < board.length; y++) {
+		for (let x = 0; x < board[y].length; x++) {
+			if (y === x) {
+				majorDiag += board[y][x][3 * y + x + 1];
+				console.log('this is major', majorDiag);
+			}
+			 if (x + y === 2) {
+				minorDiag += board[x][y][3 * x + y + 1];
+				console.log('this is minor', minorDiag);
+			} 
+		}
+	}
+	if (majorDiag === 3 || minorDiag === 3) {
 		winningTable.cross += 1;
 		tableHandler(winningTable.cross, winningTable.circle);
 		alert('Cross Won! Cross Will Go First On Next Round!');
 		crossTurn = true;
 		circleTurn = false;
 		return true;
-	} else if (
-		board[0][0][1] + board[1][1][5] + board[2][2][9] === -3 ||
-		board[0][2][3] + board[1][1][5] + board[2][0][7] === -3
-	) {
-		winningTable.cross += 1;
+	} else if (majorDiag === -3 || minorDiag === -3) {
+		winningTable.circle += 1;
 		tableHandler(winningTable.cross, winningTable.circle);
-		alert('Cross Won! Cross Will Go First On Next Round!');
-		crossTurn = true;
-		circleTurn = false;
+		alert('Circle Won! Circle Will Go First On Next Round!');
+		crossTurn = false;
+		circleTurn = true;
 		return true;
 	}
 };
