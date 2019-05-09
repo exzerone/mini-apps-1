@@ -1,0 +1,28 @@
+DROP DATABASE IF EXISTS Amazon;
+CREATE DATABASE Amazon;
+
+USE Amazon;
+
+CREATE TABLE signup (
+   id INTEGER AUTO_INCREMENT,
+  username VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  PRIMARY KEY(id)
+);
+
+CREATE TABLE payment (
+ cardName INTEGER NOT NULL,
+ cvv INTEGER(5) NOT NULL,
+ expired_month INTEGER NOT NULL,
+ expired_year INTEGER NOT NULL, 
+ card_number INTEGER NOT NULL
+);
+
+CREATE TABLE shipping (
+ Address_Line1 VARCHAR(255) NOT NULL,
+ Address_Line2 VARCHAR(255) NOT NULL,
+ State VARCHAR(255) NOT NULL,
+ Zip_Code INTEGER(5) NOT NULL,
+ Phone INTEGER NOT NULL
+);

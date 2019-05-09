@@ -1,52 +1,71 @@
 class Payment extends React.Component {
 	constructor(props) {
-    super(props);
-    this.state = {
-      cardName: '',
-      cvv: '',
-      expireMonth: '',
-      expireYear: '',
-      cardNumber: ''
-    }
-    this.inputHandler = this.inputHandler.bind(this);
-    this.submitHandler = this.submitHandler.bind(this);
-  }
-  
-  
-  inputHandler(e){
-    for (var key in this.state){
-      if (key === e.target.className){
-        this.setState({[key]:e.target.value})
-      }
-    }
-  }
+		super(props);
+		this.state = {
+			cardName: '',
+			cvv: '',
+			expireMonth: '',
+			expireYear: '',
+			cardNumber: ''
+		};
+		this.inputHandler = this.inputHandler.bind(this);
+		this.submitHandler = this.submitHandler.bind(this);
+	}
 
-  submitHandler(e){
-    e.preventDefault();
-    this.props.childStateHandler(this.state);
-    this.props.paymentHandler();
-  }
+	inputHandler(e) {
+		for (var key in this.state) {
+			if (key === e.target.className) {
+				this.setState({ [key]: e.target.value });
+			}
+		}
+	}
+
+	submitHandler(e) {
+		e.preventDefault();
+		this.props.childStateHandler(this.state);
+		this.props.paymentHandler();
+	}
 
 	render() {
 		return (
 			<div>
 				<h3>Payment Information</h3>
 				<form>
-          <div>
-            <label>Card Holder's Name</label>
-            <input onChange={this.inputHandler} type="text" className="cardName" id="form" ></input>
-          </div>
-          <div className="CVV">
-            <label>CVV</label>
-            <input onChange={this.inputHandler} type="text" className="cvv" id="form"></input>
-          </div>
-          <div id="card-number-field">
-            <label>Card Number</label>
-            <input onChange={this.inputHandler} maxLength="16" type="text" className="cardNumber" id="form"></input>
-          </div>
+					<div>
+						<label>Card Holder's Name</label>
+						<input
+							onChange={this.inputHandler}
+							type="text"
+							className="cardName"
+							id="form"
+						/>
+					</div>
+					<div className="CVV">
+						<label>CVV</label>
+						<input
+							onChange={this.inputHandler}
+							type="text"
+							className="cvv"
+							id="form"
+						/>
+					</div>
+					<div id="card-number-field">
+						<label>Card Number</label>
+						<input
+							onChange={this.inputHandler}
+							maxLength="16"
+							type="text"
+							className="cardNumber"
+							id="form"
+						/>
+					</div>
 					<div id="expiration-date">
 						<label>Expiration Date</label>
-						<select className="expireMonth" onChange={this.inputHandler} id="form">
+						<select
+							className="expireMonth"
+							onChange={this.inputHandler}
+							id="form"
+						>
 							<option value="01">January</option>
 							<option value="02">February </option>
 							<option value="03">March</option>
@@ -60,7 +79,11 @@ class Payment extends React.Component {
 							<option value="11">November</option>
 							<option value="12">December</option>
 						</select>
-						<select className="expireYear" onChange={this.inputHandler} id="form">
+						<select
+							className="expireYear"
+							onChange={this.inputHandler}
+							id="form"
+						>
 							<option value="2016"> 2016</option>
 							<option value="2017"> 2017</option>
 							<option value="2018"> 2018</option>
@@ -70,7 +93,7 @@ class Payment extends React.Component {
 						</select>
 					</div>
 				</form>
-        <input onClick={this.submitHandler} type="submit" value="Next"></input>
+				<input onClick={this.submitHandler} type="submit" value="Next" />
 			</div>
 		);
 	}
