@@ -5,50 +5,55 @@ class Signup extends React.Component {
 			username: '',
 			password: '',
 			email: ''
-    };
-    this.usernameHandler = this.usernameHandler.bind(this);
-    this.passwordHandler = this.passwordHandler.bind(this);
-    this.emailHandler = this.emailHandler.bind(this);
+		};
+		this.inputHandler = this.inputHandler.bind(this);
+		this.submitHandler = this.submitHandler.bind(this);
 	}
 
-	usernameHandler(e) {
-    e.preventDefault();
-    var username = e.target.value;
-    this.setState({ username });
+	inputHandler(e) {
+		for (var key in this.state) {
+			if (key === e.target.className) {
+				this.setState({ [key]: e.target.value });
+			}
+		}
 	}
 
-	passwordHandler(e) {
-    e.preventDefault();
-    var password = e.target.value;
-		this.setState({ password });
+	submitHandler(e) {
+		e.preventDefault();
+		this.props.childStateHandler(this.state);
+		this.props.signupHandler();
 	}
-
-	emailHandler(e) {
-    e.preventDefault();
-    var email = e.target.value;
-		this.setState({ email });
-  }
-  
-  submitHandler(e){
-    e.preventDefault();
-    this.props.signHandler();
-  }
 
 	render() {
 		return (
 			<div>
 				<h3>Account Creation</h3>
 				<form>
-					<label>Username: </label>
-					<input onChange={this.usernameHandler} placeholder="Full Name" className="name" type="text" />
+					<label>Full Name: </label>
+					<input
+						onChange={this.inputHandler}
+						placeholder="Full Name"
+						className="username"
+						type="text"
+					/>
 					<br />
 					<label>Password: </label>
-					<input onChange={this.passwordHandler} placeholder="Password" className="password" type="password" />
+					<input
+						onChange={this.inputHandler}
+						placeholder="Password"
+						className="password"
+						type="password"
+					/>
 					<br />
 					<label>E-Mail: </label>
-					<input onChange={this.emailHandler} placeholder="E-Mail" className="email" type="email" />
+					<input
+						onChange={this.inputHandler}
+						placeholder="E-Mail"
+						className="email"
+						type="email"
+					/>
 					<br />
-					<input type="submit" />
+					<input onClick={this.submitHandler} type="submit" value="Next" />
 				</form>
 			</div>
 		);
