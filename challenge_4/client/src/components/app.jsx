@@ -15,7 +15,10 @@ class App extends React.Component {
 				[0, 0, 0, 0, 0, 0, 0]
 			],
 			player1: true,
-			player2: false
+			player2: false,
+      winningtable: { player1: 0, player2: 0 },
+      player1won: false,
+      player2won: false
 		};
 		this.gameHandler = this.gameHandler.bind(this);
 		this.tableGenerate = this.tableGenerate.bind(this);
@@ -89,7 +92,6 @@ class App extends React.Component {
 					);
 				}
 			}
-			// space.push(<br />);
 			row.push(<div key={y}>{space}</div>);
 		}
 		return row;
@@ -113,7 +115,7 @@ class App extends React.Component {
 				return;
 			});
 		} else {
-      var sum = 0;
+			var sum = 0;
 			var obj = this.state.board;
 			for (var y = obj.length - 1; y >= 0; y--) {
 				if (obj[0][column] !== 0) {
@@ -133,18 +135,31 @@ class App extends React.Component {
 	}
 
 	winHandler() {
-		var sum = 0;
-		for (let y = 0; y < this.state.board.length; y++) {
-			for (let x = 0; x < this.state.board[y].length; x++) {
-				sum += this.state.board[y][x];
+    var board = this.state.board;
+		var winningtable = this.state.winningtable;
+		for (let y = 0; y < board.length; y++) {
+			var sumR = 0;
+			var sumC = 0;
+			for (let x = 0; x < board[y].length; x++) {
+        if (x <= y) {
+          sumC += board[x][y];
+        }
+        sumR += board[y][x];
+        console.log('this is sumR', sumR);
+        console.log('this is sumC', sumC);
+        if (sumR === 4 || sumC === 4) {
+          winningtable['player1'] += 1;
+          alert('Player1 has Won!');
+          // this.setState({player1won:!this.state.player1won})
+          return;
+        }
+        if (sumR === -4 || sumC === -4) {
+          winningtable['player2'] += 1;
+          alert('Player2 has won!');
+          // this.setState({player2won:!this.state.player2won})
+          return;
+        }
 			}
-		}
-		if (sum === 4) {
-			alert('Player1 Has Won!');
-			return;
-		} else if (sum === -4) {
-			alert('Player2 Has Won!');
-			return;
 		}
 	}
 
