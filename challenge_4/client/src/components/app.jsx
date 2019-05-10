@@ -23,7 +23,9 @@ class App extends React.Component {
 		this.gameHandler = this.gameHandler.bind(this);
 		this.tableGenerate = this.tableGenerate.bind(this);
 		this.turnHandler = this.turnHandler.bind(this);
-		this.moveHandler = this.moveHandler.bind(this);
+    this.moveHandler = this.moveHandler.bind(this);
+    this.resetHandler = this.resetHandler.bind(this);
+    // this.submitScoreHandler = this.submitScoreHandler.bind(this);
 	}
 
 	turnHandler() {
@@ -46,7 +48,9 @@ class App extends React.Component {
 					space.push(
 						<Square
 							backgroundColor="white"
-							key={x - y}
+              key={x - y}
+              player1won={this.state.player1won}
+              player2won={this.state.player2won}
 							player2={this.state.player2}
 							player1={this.state.player1}
 							turnHandler={this.turnHandler}
@@ -62,7 +66,9 @@ class App extends React.Component {
 					space.push(
 						<Square
 							backgroundColor="lightgreen"
-							key={x - y}
+              key={x - y}
+              player1won={this.state.player1won}
+              player2won={this.state.player2won}
 							player2={this.state.player2}
 							player1={this.state.player1}
 							turnHandler={this.turnHandler}
@@ -78,7 +84,9 @@ class App extends React.Component {
 					space.push(
 						<Square
 							backgroundColor="red"
-							key={x - y}
+              key={x - y}
+              player1won={this.state.player1won}
+              player2won={this.state.player2won}
 							player2={this.state.player2}
 							player1={this.state.player1}
 							turnHandler={this.turnHandler}
@@ -175,10 +183,31 @@ class App extends React.Component {
         }
       }
     }
-	}
+  }
+  
+  resetHandler(e){
+    e.preventDefault();
+    var board = this.state.board;
+    for (let y = 0; y < board.length; y++){
+      for (let x = 0; x < board[y].length; x++){
+        board[y][x] = 0;
+      }
+    }
+    this.setState({board});
+  }
+  // submitScoreHandler(e){
+    
+  // }
+
 
 	render() {
-		return <div className="board">{this.tableGenerate()}</div>;
+		return (
+      <div>
+        <div className="board">{this.tableGenerate()}</div>
+        <button onClick={this.resetHandler}>Reset Game</button>
+        {/* <button>Submit Score</button> */}
+      </div>
+    )
 	}
 }
 

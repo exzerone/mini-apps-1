@@ -15,10 +15,14 @@ class Square extends React.Component {
 	}
 
 	clickHandler(e) {
-		e.preventDefault();
-		var x = e.target.dataset.x;
-		this.props.moveHandler(x);
-		this.props.turnHandler();
+		if (this.props.player1won === false && this.props.player2won === false){
+			e.preventDefault();
+			var x = e.target.dataset.x;
+			this.props.moveHandler(x);
+			this.props.turnHandler();
+		} else {
+			alert('Game is Over!')
+		}
 		// if (this.props.value === 1){
 		// 	this.setState({backgroundColor: 'lightgreen'})
 		// } else if (this.props.value === -1){
