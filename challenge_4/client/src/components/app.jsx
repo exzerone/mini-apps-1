@@ -74,7 +74,7 @@ class App extends React.Component {
 							value={this.state.board[y][x]}
 						/>
 					);
-				} else if (this.state.board[y][x] === -1) {
+				} else if (this.state.board[y][x] === 10) {
 					space.push(
 						<Square
 							backgroundColor="red"
@@ -123,7 +123,7 @@ class App extends React.Component {
 					return;
 				}
 				if (obj[y][column] === 0) {
-					obj[y][column] = -1;
+					obj[y][column] = 10;
 					break;
 				}
 			}
@@ -139,28 +139,42 @@ class App extends React.Component {
 		var winningtable = this.state.winningtable;
 		for (let y = 0; y < board.length; y++) {
 			var sumR = 0;
-			var sumC = 0;
 			for (let x = 0; x < board[y].length; x++) {
-        if (x <= y) {
-          sumC += board[x][y];
-        }
         sumR += board[y][x];
-        console.log('this is sumR', sumR);
-        console.log('this is sumC', sumC);
-        if (sumR === 4 || sumC === 4) {
+        if (sumR === 4){
           winningtable['player1'] += 1;
           alert('Player1 has Won!');
-          // this.setState({player1won:!this.state.player1won})
-          return;
-        }
-        if (sumR === -4 || sumC === -4) {
+          this.setState({player1won:!this.state.player1won}, ()=>{
+            return;
+          })
+        } else if (sumR === 40){
           winningtable['player2'] += 1;
           alert('Player2 has won!');
-          // this.setState({player2won:!this.state.player2won})
-          return;
+          this.setState({player2won:!this.state.player2won}, ()=>{
+            return;
+          })
         }
-			}
-		}
+      }
+    }
+    for (let y = 0; y < 7; y++){
+      var sumC = 0;
+      for (let x = 0; x < board.length; x++){
+        sumC += board[x][y];
+        if (sumC === 4){
+          winningtable['player1'] += 1;
+          alert('Player1 has Won!');
+          this.setState({player1won:!this.state.player1won}, ()=>{
+            return;
+          })
+        } else if (sumC === 40){
+          winningtable['player2'] += 1;
+          alert('Player2 has won!');
+          this.setState({player2won:!this.state.player2won}, ()=>{
+            return;
+          })
+        }
+      }
+    }
 	}
 
 	render() {
