@@ -20,7 +20,7 @@
     "webpack-cli": "^3.3.2"
   },
   "dependencies": {
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "jsx": "^0.9.89",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
